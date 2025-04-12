@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ReThread App Demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 30px;
+            background-color: #f0f4f2;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2e7d32;
+        }
+        .upload-box {
+            margin-top: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e0f2f1;
+            border-left: 5px solid #2e7d32;
+        }
+        select, input[type="file"] {
+            margin-top: 10px;
+            padding: 8px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧵 ReThread – Upcycle Your Closet</h1>
+        <p>Upload a photo of your clothing item to start the upcycle journey.</p>
+        
+        <input type="file" id="upload" accept="image/*">
+
+        <label for="fabric">Fabric Type:</label>
+        <select id="fabric">
+            <option value="Cotton">Cotton</option>
+            <option value="Polyester">Polyester</option>
+            <option value="Denim">Denim</option>
+            <option value="Mixed">Mixed</option>
+        </select>
+
+        <label for="condition">Condition:</label>
+        <select id="condition">
+            <option value="Good">Good</option>
+            <option value="Worn">Worn</option>
+            <option value="Damaged">Damaged</option>
+        </select>
+
+        <button onclick="showResult()">Get Upcycle Ideas</button>
+
+        <div id="resultBox" class="result" style="display: none;">
+            <h3>Suggested Upcycle Ideas:</h3>
+            <ul id="suggestions"></ul>
+        </div>
+    </div>
+
+    <script>
+        function showResult() {
+            const fabric = document.getElementById('fabric').value;
+            const condition = document.getElementById('condition').value;
+            const suggestions = document.getElementById('suggestions');
+            const resultBox = document.getElementById('resultBox');
+            suggestions.innerHTML = '';
+
+            let ideas = [];
+
+            if (fabric === 'Cotton') {
+                ideas.push('Make a tote bag');
+                ideas.push('Turn into cleaning cloths');
+            } else if (fabric === 'Denim') {
+                ideas.push('Create a small pouch or wallet');
+                ideas.push('Make patchwork coasters');
+            } else if (fabric === 'Polyester') {
+                ideas.push('Use for stuffing in pillows');
+                ideas.push('Make a headband or wrist strap');
+            } else {
+                ideas.push('Combine with other scraps for a quilt');
+                ideas.push('Turn into patch-style fashion accessories');
+            }
+
+            if (condition === 'Damaged') {
+                ideas = ideas.filter(idea => !idea.includes('bag'));
+                ideas.push('Cut into craft-ready strips');
+            }
+
+            ideas.forEach(idea => {
+                const li = document.createElement('li');
+                li.textContent = idea;
+                suggestions.appendChild(li);
+            });
+
+            resultBox.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
